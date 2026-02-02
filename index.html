@@ -1,0 +1,1690 @@
+
+
+<!doctype html>
+<html lang="en" data-layout-mode="<%= sessionStorage.getItem('layout-mode') || 'light' %>">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>CloudAtlas Reports</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+
+    <!-- preloader css -->
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background-color: #f3f3f3a6;
+        }
+
+        .main-content {
+            overflow: hidden;
+        }
+
+        .tooltip123 {
+            display: block;
+            white-space: pre-line;
+            word-wrap: break-word;
+            position: absolute;
+            background-color: #000;
+            color: #fff;
+            padding: 8px;
+            border-radius: 4px;
+            z-index: 9999;
+            width: 280px;
+            max-width: 280px;
+        }
+
+        .tooltip-inner {
+            text-align: left;
+        }
+
+        .bg-img {
+            position: relative;
+            z-index: 1;
+            border: 5px solid #fff;
+        }
+
+            .bg-img::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url('../content/assets/images/banner-bg-journey.png');
+                background-position: left top;
+                background-color: #fff;
+                background-size: cover;
+                background-repeat: no-repeat;
+                z-index: -1;
+            }
+
+        .ai-img {
+            font-size: 105px;
+            color: #0f3362;
+            position: relative;
+            padding: 0 15px;
+            margin: 0px 0px 0 0;
+            display: flex;
+            align-items: center;
+        }
+
+            .ai-img img {
+                max-height: 90px;
+            }
+
+        .card-ctm {
+            border: 1px dashed #838383;
+            border-radius: 10px;
+            padding: 20px;
+            height: 100%;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cardctm-header {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .documents_listing_wrap {
+            margin: 15px 0;
+        }
+
+            .documents_listing_wrap h2 {
+                background: #2196F3;
+                color: #fff;
+                font-weight: bold;
+                font-size: 18px;
+                margin-bottom: 0px;
+                padding: 8px 10px 5px 10px;
+                display: flex;
+                align-items: center;
+            }
+
+                .documents_listing_wrap h2 span img {
+                    max-width: 63px;
+                    margin-right: 10px;
+                }
+
+        .main_doc_wrap {
+            border: 1px solid #c7c7c7;
+            padding: 7px;
+            background: #fff;
+            max-height: 495px;
+            overflow-y: auto;
+        }
+
+        .asset_row {
+            display: flex;
+            justify-content: space-between;
+            font-style: italic;
+            color: #1756ca;
+            font-weight: 500;
+            font-size: 13px;
+            padding: 5px 10px 5px 20px;
+            border-bottom: 1px dashed #ccc;
+            position: relative;
+        }
+
+            .asset_row:last-child {
+                border-bottom: none;
+            }
+
+            .asset_row p {
+                margin: 0px; font-size:14px;
+            }
+
+            .asset_row div {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+                .asset_row div p {
+                    font-style: normal !important;
+                    color: #333;
+                }
+
+                .asset_row div a {
+                    margin: 0 0 0 15px;
+                    padding: 2px 5px;
+                }
+
+                    .asset_row div a:hover {
+                        background: #eee;
+                        border-radius: 4px;
+                    }
+
+        .documents a {
+            display: block;
+            position: relative;
+            font-style: italic;
+            color: #1756ca;
+            font-weight: 500;
+            font-size: 13px;
+            /* border-bottom: 1px dashed #ccc; */
+        }
+
+            .documents a:last-child {
+                border-bottom: none;
+            }
+
+        .asset_row::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 5px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ff6a00;
+        }
+
+        .asset_row:hover {
+            background: #ffffec;
+        }
+
+        select {
+            height: 30px !important;
+            padding: 0 10px !important;
+            font-size: 1em;
+        }
+
+        /* .divider {
+            width: 100%;
+            border: 1px solid #eeeeee;
+            border-radius: 15px;
+            margin: 7px auto;
+        } */
+
+        /* The main visible filter trigger button */
+        .filter-trigger-button {
+            padding: 4px 15px;
+            background-color: #ec9c00;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+            .filter-trigger-button:hover {
+                background-color: #dc9303;
+            }
+
+
+
+        /* The Mega Menu style dropdown panel */
+        #filter-container {
+            position: relative;
+        }
+
+        .filter-panel-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 400px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 1.5rem;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        #filter-container:hover .filter-panel-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .filter-wrapper {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .filter-group {
+            grid-column: span 1;
+        }
+
+            .filter-group select {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                margin-top: 5px;
+            }
+
+            .filter-group label {
+                font-weight: bold;
+                font-size: 0.9em;
+                color: #555;
+            }
+
+        .header-right {
+            grid-column: 1 / -1;
+            text-align: right;
+            padding-top: 15px;
+            margin-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .clear-filters-btn {
+            background-color: transparent;
+            border: 1px solid var(--header-text-light);
+            /* White border */
+            color: var(--header-text-light);
+            /* White text */
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+            height: 38px;
+        }
+
+            .clear-filters-btn:hover {
+                background-color: rgba(255, 255, 255, 0.2);
+                /* Slight white overlay on hover */
+                color: var(--header-text-light);
+                border-color: var(--header-text-light);
+            }
+
+        /* --- Main Layout Structure --- */
+        .doc-container {
+            flex: 1;
+            display: flex;
+            width: 100%;
+        }
+
+        /* --- Sidebar Styling --- */
+        .sidebar2 {
+            width: 250px;
+            flex-shrink: 0;
+            padding: 0px 0 0 0px;
+            border-right: 1px solid #d8d8d8;
+            position: absolute;
+            left: 0;
+            top: 0; bottom:0;
+            overflow-y: auto;
+        }
+
+        .sidebar-section h3 {
+            color: var(--text-light-gray);
+            /* Lighter gray for section titles */
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 15px 20px;
+            padding-top: 15px
+        }
+
+        .nav-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 0 20px;
+        }
+
+        .nav-link-item a {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: var(--text-dark);
+            /* Dark text for links */
+            font-size: 14px;
+            transition: background-color 0.2s, color 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+            .nav-link-item a:hover {
+                background-color: #f6f6f6;
+            }
+
+        .nav-link-item.active a {
+            background-color: #f4f7fa;
+            /* Light gray background for active */
+            color: #3F51B5;
+            /* Blue text for active */
+            border-left-color: #3F51B5;
+            font-weight: 500;
+            /* Blue indicator line */
+        }
+
+        /* --- Content Area Styling --- */
+        .main-content2 {
+            margin-left: 250px;
+        }
+
+        .content-area {
+            flex-grow: 1;
+            padding: 0px 0px;
+            overflow-y: auto;
+        }
+
+        /* Core Logic: Hide all sections by default */
+        .content-section {
+            display: none;
+            padding-bottom: 60px;
+        }
+
+            /* Core Logic: The JS adds the 'visible' class to the active section */
+            .content-section.visible {
+                display: block;
+            }
+
+        /* Headings and Text */
+        .getting-started-heading {
+            font-size: 14px;
+            color: #777777;
+            /* Lighter gray for sub-heading */
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .main-title {
+            font-size: 30px;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            border-bottom: 1px solid #d8d8d8;
+            padding-bottom: 15px;
+        }
+
+        .details-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .details p {
+            color: var(--text-medium-dark);
+        }
+
+        .divider {
+            border-bottom: 1px solid #d8d8d8;
+            margin: 10px 0px;
+        }
+
+
+        .asset_row {
+            display: flex;
+            justify-content: space-between;
+            font-style: italic;
+            color: #1756ca;
+            font-weight: 500;
+            font-size: 13px;
+            padding: 5px 10px 5px 20px;
+            border-bottom: 1px dashed #ccc;
+            position: relative;
+        }
+
+            .asset_row:last-child {
+                border-bottom: none;
+            }
+
+            .asset_row p {
+                margin: 0px;
+                font-size: 14px;
+            }
+
+            .asset_row div {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+                .asset_row div p {
+                    font-style: normal !important;
+                    color: #333;
+                }
+
+                .asset_row div a {
+                    margin: 0 0 0 15px;
+                    padding: 2px 5px;
+                }
+
+                    .asset_row div a:hover {
+                        background: #eee;
+                        border-radius: 4px;
+                    }
+
+        .documents a {
+            display: block;
+            position: relative;
+            font-style: italic;
+            color: #1756ca;
+            font-weight: 500;
+            font-size: 13px;
+            /* border-bottom: 1px dashed #ccc; */
+        }
+
+        .documents h4 {
+            margin-bottom: 1rem;
+        }
+
+        .documents a:last-child {
+            border-bottom: none;
+        }
+
+        .asset_row::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 5px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ff6a00;
+        }
+
+        .asset_row:hover {
+            background: #ffffec;
+        }
+
+        select {
+            height: 30px !important;
+            padding: 0 10px !important;
+            font-size: 1em;
+        }
+
+        .searchbar {
+            position: relative;
+            z-index: 1;
+        }
+
+            .searchbar input {
+                padding-right: 35px;
+            }
+
+            .searchbar:before {
+                content: "";
+                width: 20px;
+                height: 100%;
+                background: url(search.png) no-repeat right/contain;
+                position: absolute;
+                top: 0;
+                right: 10px;
+                opacity: 0.3;
+            }
+
+    </style>
+  
+
+    <style>
+
+        .h-main {
+            height: calc(100vh - 118px);
+        }
+
+        .navbar-brand-box {
+            width: inherit !important;
+        }
+
+
+
+        .dropdown-width {
+            min-width: 25rem;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .dropdown-menu {
+            background-color: #fff !important;
+        }
+
+        .bg-light-ctm {
+            background-color: #F0F4F9;
+        }
+
+        .w-15 {
+            width: 15%;
+        }
+
+        .user-items {
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+            margin: 0 auto;
+            margin-top: 9px;
+        }
+
+        .btn-dark-ctm {
+            border-radius: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+        }
+
+        body[data-topbar=dark] .btn-dark-ctm {
+            color: #a2a2a2;
+            background-color: #2c302e !important;
+        }
+
+        .bg-gary-ctm {
+            background-color: #F0F4F9;
+        }
+
+        .page-content {
+            height: 100vh;
+            padding: 0px 0px 0;
+        }
+
+        .btn-white-first {
+            background-color: #fff;
+            border-radius: 50px 0 0 50px;
+        }
+
+            .btn-white-first:hover {
+                background-color: #fff;
+                border-radius: 50px 0 0 50px;
+                box-shadow: rgba(0, 0, 0, 0.1) 0px 0.5rem 1rem !important;
+            }
+
+        .btn-white-second {
+            background-color: #fff;
+            border-radius: 0 50px 50px 0;
+            padding: 8px 30px;
+        }
+
+            .btn-white-second:hover {
+                background-color: #fff;
+                border-radius: 0 50px 50px 0;
+                padding: 8px 30px;
+                box-shadow: rgba(0, 0, 0, 0.1) 0px 0.5rem 1rem !important;
+            }
+
+        .hs-list li {
+            margin: 10px 10px;
+        }
+
+            .hs-list li a {
+                color: #000 !important;
+                display: flex;
+                border-radius: 5px;
+                padding: 8px;
+                background-color: #fff;
+            }
+
+                .hs-list li a:hover {
+                    color: #2F2F2F !important;
+                    display: flex;
+                    border-radius: 5px;
+                    background-color: #ececec;
+                    padding: 8px;
+                }
+
+        .btm-version {
+            position: absolute;
+            bottom: 40px;
+            color: #325e95;
+        }
+
+        .drop-down {
+            border-radius: 20px !important;
+            min-width: 17rem !important;
+        }
+
+            .drop-down .dropdown-item {
+                padding: 0.8rem 1rem !important;
+            }
+
+        .chat-link-ctm {
+            border: 1px solid #458ed9 !important;
+            background: #fff !important;
+            color: #458ed9;
+            font-weight: 400 !important;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+        }
+
+        body[data-sidebar-size=sm] .vertical-menu {
+            margin-left: -70px;
+        }
+
+        body[data-sidebar-size=sm] .navbar-brand-box {
+            margin-left: -70px;
+        }
+
+        body[data-sidebar-size=sm] .sidebarmenu > li > a span {
+            display: none;
+        }
+
+        body[data-sidebar-size=sm] .main-content {
+            margin-left: 0;
+        }
+
+        .sidebarn {
+            display: flex;
+            flex-direction: column;
+            /*   height: calc(100vh - 208px); */
+            /* height : 75vh; */
+        }
+
+        .sidebar-section {
+            padding: 8px;
+        }
+
+            .sidebar-section:last-child {
+                border-bottom: none;
+            }
+
+        .hos-heading {
+            color: #737373;
+        }
+
+        .chat-export-btn {
+            border-radius: 50%;
+            background-color: #f0f4f9;
+            color: #318eae;
+            height: 30px;
+            width: 30px;
+            margin: 0 auto;
+            padding: 3px;
+        }
+
+        .td-his-list li:hover {
+            background-color: #dddddd5c;
+            padding: 5px 2px;
+            border-radius: 5px;
+        }
+
+        .td-his-list li {
+            padding: 5px 2px;
+            border-radius: 5px;
+        }
+
+        .rounded-cir {
+            height: 22px;
+            width: 22px;
+        }
+
+        .btn-con {
+            background-color: #29B6F6;
+            border: 2px solid #fff !important;
+            color: #fff !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+
+        .btn-tools {
+            background-color: #0277BD;
+            border: 2px solid #fff !important;
+            color: #fff !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+
+        body[data-layout-mode=dark] .text-dark {
+            color: #939394 !important;
+        }
+
+        body[data-layout-mode=dark] .bg-white {
+            background-color: #313533 !important;
+        }
+
+        body[data-layout-mode=dark] .bottom-links {
+            background-color: #313533 !important;
+            border: 1px solid #313533 !important;
+        }
+
+        .accordion-button:not(.collapsed) {
+            color: #000000;
+            background-color: #ffffff00;
+            -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
+            box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
+        }
+
+        .bottom-links a {
+            display: flex;
+            align-items: center;
+        }
+
+            .bottom-links a span {
+                display: flex;
+                align-items: center;
+                line-height: 17px;
+            }
+
+                .bottom-links a span svg {
+                    margin-bottom: 3px;
+                }
+
+        .btn-main {
+            margin-right: 5px;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #0067b8 !important;
+            font-size: 15px;
+        }
+
+            .btn-main:hover {
+                color: #fff;
+            }
+
+        .support_txt:hover span {
+            text-decoration: underline;
+        }
+
+        .text-blue-c {
+            color: #ffffff !important;
+            padding: 3px 10px !important;
+            border-radius: 4px;
+            background: #0067b8 !important;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+
+        .bg-blue-c {
+            background-color: #0067B8 !important;
+        }
+
+        .side-main {
+            margin-right: 5px;
+            color: #000;
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            padding: 5px 8px;
+            line-height: 16px;
+            position: relative;
+            flex-direction: column;
+        }
+
+            .side-main.active {
+                background: #fff;
+            }
+
+        body[data-layout-mode="dark"] .side-main.active {
+            background: #434343;
+            color: #fff !important;
+        }
+
+            body[data-layout-mode="dark"] .side-main.active:hover {
+                background: #434343;
+            }
+
+        .side-main.active:before {
+            position: absolute;
+            content: '';
+            left: 0px;
+            top: 53%;
+            width: 4px;
+            height: 75%;
+            background: var(--bs-primary);
+            transform: translate(-50%, -50%);
+            border-radius: 4px;
+        }
+
+        body[data-layout-mode="dark"] .side-main:hover {
+            background: #282828;
+        }
+
+        .side-main.active:hover {
+            background: #fff;
+        }
+
+        .btn-com {
+            background-color: #0067b8;
+            color: #fff;
+            font-size: 13px;
+        }
+
+            .btn-com:hover {
+                box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23) !important;
+                color: #fff;
+            }
+
+        .main-sidebar-sec {
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .vertical-menu {
+            width: 128px;
+        }
+
+        .side-main:hover {
+            background: #ebebeb;
+        }
+
+        .btn-main-n {
+            margin-right: 5px;
+            color: #fff;
+            justify-content: center;
+            align-items: center;
+            background-color: #0067b8 !important;
+            font-size: 14px;
+            transition: ease-in-out 0.2s;
+        }
+
+            .btn-main-n:hover {
+                transform: translateY(-2px);
+                box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.5) !important;
+                color: #fff;
+            }
+
+        .btn-main-h {
+            margin-right: 5px;
+            color: #0067b8;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            font-size: 14px;
+            border: 1px solid #0067b8 !important;
+            transition: ease-in-out 0.2s;
+        }
+
+            .btn-main-h:hover {
+                transform: translateY(-2px);
+                box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.5) !important;
+                color: #0067b8;
+            }
+
+        .cs-dtl-img {
+            height: 120px;
+            border-radius: 10px;
+            margin-right: 15px !important;
+        }
+
+        .case-box {
+            flex-grow: 1;
+            margin: 0 30px 0 0;
+            padding: 0px 30px 0 0;
+            border-right: 1px solid #ccc;
+        }
+
+        .case-study-details {
+            padding: 15px;
+            background: #f3f3f3;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+
+        body[data-layout-mode="dark"] .case-study-details {
+            border: 1px solid #555;
+        }
+
+        body[data-layout-mode="dark"] .monitor-frame {
+            border: 15px solid #525252;
+        }
+
+        #mode-setting-btn:hover {
+            background-color: transparent;
+            color: #0067b8;
+        }
+
+        .cs_result {
+            background: aliceblue;
+        }
+
+        ul.help-resources {
+            list-style: none;
+            padding: 0 0 20px 0;
+            margin: 0 0 0px 0;
+        }
+
+        .help-resources li a {
+            font-size: 14px;
+        }
+
+            .help-resources li a:hover {
+                text-decoration: underline !important;
+            }
+
+        .monitor-frame p {
+            color: #333 !important;
+        }
+
+        .get-in-touch {
+            margin: 0 0 0 30px;
+            padding: 10px 20px;
+            background: #f3f3f3;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+            .get-in-touch img {
+                max-height: 50px;
+                margin: 5px auto 10px;
+            }
+
+        .spinner-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: absolute;
+            z-index: 99999;
+            width: 100%;
+            top: 0;
+            border-radius: 0;
+            bottom: 0;
+            right: 10px;
+            left: 10px;
+            height: calc(100vh - 118px);
+        }
+
+        .launchpoc {
+            max-width: 65%;
+        }
+
+        .cs-list li {
+            font-size: 16px;
+        }
+
+        .star-rating {
+            margin: 0;
+            font-size: 0;
+            white-space: nowrap;
+            display: block;
+            width: 125px;
+            height: 25px;
+            overflow: hidden;
+            position: relative;
+            background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+            background-size: contain;
+        }
+
+            .star-rating i {
+                opacity: 0;
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 20%;
+                z-index: 1;
+                background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+                background-size: contain;
+            }
+
+            .star-rating input {
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                opacity: 0;
+                display: inline-block;
+                width: 20%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                z-index: 2;
+                position: relative;
+            }
+
+                .star-rating input:hover + i,
+                .star-rating input:checked + i {
+                    opacity: 1;
+                }
+
+            .star-rating i ~ i {
+                width: 40%;
+            }
+
+                .star-rating i ~ i ~ i {
+                    width: 60%;
+                }
+
+                    .star-rating i ~ i ~ i ~ i {
+                        width: 80%;
+                    }
+
+                        .star-rating i ~ i ~ i ~ i ~ i {
+                            width: 100%;
+                        }
+
+        .back_to_dash {
+            position: absolute;
+            left: 10px;
+            top: 0px;
+        }
+
+            .back_to_dash:hover {
+                text-decoration: underline !important;
+            }
+
+        body[data-layout-mode=dark] .get-in-touch {
+            background: #252525;
+        }
+
+        .askbot_btn {
+            position: fixed;
+            bottom: 6px;
+            right: 6px;
+            margin: 0px;
+        }
+
+        .chatbot_demo {
+            position: fixed;
+            right: -450px;
+            bottom: 6px;
+            z-index: 9;
+            transition: ease-in-out 0.2s;
+            box-shadow: 1px 3px 6px 4px rgba(0, 0, 0, 0.2);
+        }
+
+            .chatbot_demo img {
+                max-width: 450px;
+                border-radius: 3px 3px 0 0;
+            }
+
+        .chatslidein {
+            right: 6px;
+            transition: ease-in-out 0.2s;
+        }
+
+        #close-bot {
+            position: absolute;
+            right: 13px;
+            top: 17px;
+            background-color: #dc3545;
+            color: #fff;
+            height: 13px;
+            width: 25px;
+            background: none;
+        }
+
+        .simplebar-content {
+            height: calc(100vh - 95px);
+            overflow: auto;
+        }
+
+        #launcher {
+            height: 46px !important;
+            padding: 0px !important;
+            margin: 5px 5px !important;
+        }
+
+        .wrapper-AtBcr {
+            padding: .5rem 1rem !important;
+        }
+
+        .watch_overview_video {
+            margin: 0 15px 0 0;
+            cursor: pointer;
+        }
+
+        .parent-ol {
+            counter-reset: item; /* Reset the item counter for the first level */
+            padding-left: 10px;
+        }
+
+        .parent-li {
+            display: block;
+        }
+
+            .parent-li:before {
+                content: counter(item) ". "; /* Show numbers for the parent list */
+                counter-increment: item; /* Increment the item counter */
+                font-weight: bold;
+            }
+
+        .child-ol {
+            counter-reset: subitem; /* Reset the subitem counter for second level */
+            list-style-type: none; /* Remove default list-style */
+        }
+
+        .child-li:before {
+            content: counter(item) "." counter(subitem) ". "; /* Show numbers like 1.1, 1.2, 2.1, etc. */
+            counter-increment: subitem; /* Increment the subitem counter */
+            font-weight: 500;
+        }
+
+        .subchildd-ol {
+            counter-reset: subsubitem; /* Reset the subsubitem counter for third level */
+            list-style-type: lower-alpha; /* Use lower-alpha (a, b, c, ...) */
+            padding-left: 15px;
+        }
+
+        .subchild-li:before {
+            content: counter(subsubitem, lower-alpha) ". "; /* Show letters like 1.1.a, 1.1.b */
+            counter-increment: subsubitem; /* Increment the subsubitem counter */
+            font-weight: 500;
+        }
+
+        .subchild-ol li::marker {
+            display: none;
+        }
+
+        body[data-layout-mode=dark] .goog-te-gadget .goog-te-combo {
+            background: #2c302e;
+            color: #fff;
+        }
+
+        body[data-layout-mode=dark] #google_translate_element {
+            background: #2c302e;
+            border: 1px solid #5e5e5e;
+        }
+
+        .license-box {
+            background-color: #ffffff;
+            color: #333;
+            padding: 5px 9px 5px 5px;
+            border-radius: 4px;
+            font-size: 13px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-right: 15px;
+        }
+
+        .urgent {
+            background-color: #ff5722; /* Red color for urgency */
+            color: white;
+        }
+
+        body > .skiptranslate {
+            display: none !important;
+        }
+
+        .VIpgJd-yAWNEb-VIpgJd-fmcmS-sn54Q {
+            background: none !important;
+            box-shadow: none !important;
+        }
+
+        .notification_sec .simplebar-content {
+            height: auto !important;
+            overflow: auto;
+        }
+
+            .notification_sec .simplebar-content p {
+                font-size: 14px !important;
+            }
+
+        .feedback-popup {
+            position: fixed;
+            bottom: 50px;
+            right: 12px;
+            width: 320px;
+            background-color: #fff;
+            box-shadow: 0 4px 20px 5px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            padding: 20px 0px 0;
+            z-index: 9999;
+            display: none;
+            border-radius: 10px;
+        }
+
+            .feedback-popup.active {
+                display: block;
+            }
+
+        .feedback-thumbs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 12px;
+            border-radius: 50%;
+        }
+
+        .thanks-message {
+            text-align: center;
+            font-size: 18px;
+            color: #28a745;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .feedback-button {
+            position: fixed;
+            bottom: 5px;
+            right: 153px;
+            background-color: #007bff;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 8;
+            display: none;
+        }
+
+            .feedback-button:hover {
+                background-color: #0056b3;
+            }
+
+        .feed_option {
+            margin: 0 0 10px 0;
+        }
+
+            .feed_option label {
+                font-weight: 500;
+            }
+
+            .feed_option p {
+                font-size: 0.92em;
+                margin: -7px 0 0 0;
+                line-height: 15px;
+                color: #555;
+                font-weight: 400;
+            }
+
+        .header{      border-top: 3px solid #2196F3;  background: #fff;
+    padding: 15px;
+    box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.2);}
+    .header img{max-height: 33px;margin: -4px 0 0 0;}
+    </style>
+   
+</head>
+<body>
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        <div class="main-content position-relative">
+            <div class="page-content">
+                <div class="header">
+                    <div class="col-sm-12 p-0">
+                        <h2 class="h4 mb-0">Welcome to <img src="Cloudatlas-logo.png" alt="CloudAtlas" ></h2>
+                    </div>
+                </div>
+                
+                <div class="container-fluid">
+                    <div class="row justify-content-between" style="height:calc(100vh - 84px);overflow-y:auto;">
+
+
+                        <div class="col-md-12 mt-3">
+                            <div class="card-ctm">
+                                <div class="sidebar2">
+                                <div class="sidebar-section">
+                                    <h3>Report Categories</h3>
+                                    <ul class="nav-link-list" id="nav-list">
+                                        <li class="nav-link-item active">
+                                            <a href="#" data-section="aifactory-overview">AI Factory Overview</a>
+                                        </li>
+                                        <li class="nav-link-item">
+                                            <a href="#" data-section="ai-security">AI Security & Optimization</a>
+                                        </li>
+                                        <li class="nav-link-item">
+                                            <a href="#" data-section="proof-of-concept">Proof of Concept</a>
+                                        </li>
+                                        <li class="nav-link-item">
+                                            <a href="#" data-section="deployment">Deployment</a>
+                                        </li>
+                                        <li class="nav-link-item"><a href="#" data-section="trainingVideo">Master Class & Training</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="main-content2">
+
+                                <div class="content-area" id="content-area">
+                                    <div class="content-section  visible" id="aifactory-overview">
+                                        <p class="getting-started-heading">AI Factory - Core Concepts</p>
+                                        <h1 class="main-title">AI Factory Overview</h1>
+
+                                        <div class="details-wrapper">
+                                            <div class="details">
+                                                <p class="mb-0">The <strong>AIFactory</strong> is designed as an end-to-end platform for the development,
+                                                    testing, and
+                                                    deployment
+                                                    of
+                                                    enterprise-grade AI solutions. It standardizes the entire machine learning lifecycle
+                                                    (MLOps) to
+                                                    ensure
+                                                    reproducibility and security across all environments.</p>
+                                            </div>
+                                            <div class="divider"></div>
+                                            <div class="documents">
+                                                <h4>Relevant Assets & Documents</h4>
+                                                <div class="asset_row" data-role="User​" data-type="Brochure" data-format="PDF">
+                                                    <p>AI Factory Brochure</p>
+                                                    <div>
+                                                        <p>Brochure</p>
+                                                        <a title="View file" href="/content/assets/Collateral/UnifyCloud - CloudAtlas AI Factory Brochure.pdf" target="_blank"><i class="fa fa-eye"></i></a>
+                                                        <a href="/content/assets/Collateral/UnifyCloud - CloudAtlas AI Factory Brochure.pdf" target="_blank" download="" tilte="Download file"><i
+                                                                class="fa fa-download"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="asset_row" data-role="User​,Admin,Partner" data-type="Demo"
+                                                    data-format="Video/MP4">
+                                                    <p>AI Factory Key Capabilities and Basic Navigation Overview</p>
+                                                    <div>
+                                                        <p>Video</p>
+                                                        <a title="View file" href="/content/assets/videos/AI Factory Key Capabilities and Basics Navigation Overview.mp4" target="_blank"><i class="fa fa-eye"></i></a>
+                                                        <a href="/content/assets/videos/AI Factory Key Capabilities and Basics Navigation Overview.mp4" target="_blank" download="" tilte="Download file"><i
+                                                                class="fa fa-download"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="asset_row" data-role="User,Partner​" data-type="User Guide" data-format="PDF">
+                                                    <p>AI Factory User Guide</p>
+                                                    <div>
+                                                        <p>User Guide</p>
+                                                        <a title="View file" href="/content/assets/Collateral/AI-Factory-UserGuide-V2.pdf" target="_blank"><i class="fa fa-eye"></i></a>
+                                                        <a href="/content/assets/Collateral/AI-Factory-UserGuide-V2.pdf" target="_blank" download="" tilte="Download file"><i class="fa fa-download"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="content-section" id="ai-security">
+                                        <p class="getting-started-heading">AI Factory - Key Features</p>
+                                        <h2 class="main-title">AI Security &amp; Optimization</h2>
+                                        <div class="details-wrapper">
+                                            <div class="details">
+                                                <p>Security is paramount in AI deployment. This section details our approach to protecting
+                                                    your
+                                                    models
+                                                    and
+                                                    data from adversarial attacks, unauthorized access, and data leakage.</p>
+                                                    <p class="mb-0">
+                                                        Optimization services include model quantization, pruning, and hardware-specific
+                                                        compilation
+                                                        to
+                                                        ensure <strong>low-latency inference</strong>
+                                                        and reduced operational costs without significant loss in
+                                                        predictive
+                                                        accuracy.
+                                                    </p>
+                                            </div>
+                                            <div class="divider"></div>
+                                            <div class="documents">
+                                                <h4>Relevant Assets & Documents</h4>
+                                                <div class="asset_row" data-role="User​" data-type="Brochure" data-format="PDF">
+                                                    <p>AI Guardian Brochure</p>
+                                                    <div>
+                                                        <p>Brochure</p>
+                                                        <a title="View file" href="/content/assets/Collateral/AI Guardian Brochure.pdf" target="_blank"><i class="fa fa-eye"></i></a>
+                                                        <a href="/content/assets/Collateral/AI Guardian Brochure.pdf" target="_blank" download="" tilte="Download file"><i class="fa fa-download"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="asset_row" data-role="User" data-type="Brochure" data-format="PDF">
+                                                    <p>AI Optimize Brochure</p>
+                                                    <div>
+                                                        <p>Brochure</p>
+                                                        <a title="View file" href="/content/assets/Collateral/AI Optimize Brochure__AIOPT.pdf" target="_blank"><i class="fa fa-eye"></i></a>
+                                                        <a href="/content/assets/Collateral/AI Optimize Brochure__AIOPT.pdf" target="_blank" download="" tilte="Download file"><i
+                                                                class="fa fa-download"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="asset_row" data-role="User,Partner​" data-type="User Guide" data-format="PDF">
+                                                    <p>AI Guardian User Guide</p>
+                                                    <div>
+                                                        <p>User Guide</p>
+                                                        <a title="View file" href="/content/assets/Collateral/User Guide AI_Guardian Updated.pdf" target="_blank"><i class="fa fa-eye"></i></a>
+                                                        <a href="/content/assets/Collateral/User Guide AI_Guardian Updated.pdf" target="_blank" download="" tilte="Download file"><i
+                                                                class="fa fa-download"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="asset_row" data-role="User,Partner​" data-type="User Guide" data-format="PDF">
+                                                    <p>AI Optimize User Guide</p>
+                                                    <div>
+                                                        <p>User Guide</p>
+                                                        <a title="View file" href="/content/assets/Collateral/Detailed_AI_Optimize_User Guide_AIOPT.pdf" target="_blank"><i class="fa fa-eye"></i></a>
+                                                        <a href="/content/assets/Collateral/Detailed_AI_Optimize_User Guide_AIOPT.pdf" target="_blank" download="" tilte="Download file"><i
+                                                                class="fa fa-download"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="asset_row" data-role="User,Partner​" data-type="Demo" data-format="PDF">
+                                                    <p>AI Optimize Onboarding Document</p>
+                                                    <div>
+                                                        <p>Demo</p>
+                                                        <a title="View file" href="/content/assets/Collateral/AI Optimize Onboarding Document V1_0 2_AIPOC.pdf" target="_blank"><i class="fa fa-eye"></i></a>
+                                                        <a href="/content/assets/Collateral/AI Optimize Onboarding Document V1_0 2_AIPOC.pdf" target="_blank" download="" tilte="Download file"><i
+                                                                class="fa fa-download"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="content-section" id="proof-of-concept">
+                                        <p class="getting-started-heading">AI Factory - Lifecycle</p>
+                                        <h2 class="main-title">Proof of Concept (POC)</h2>
+
+                                        <div class="details-wrapper">
+                                            <div class="details">
+                                                    <p class="mb-0">
+                                                        The <strong>POC</strong> phase allows clients to rapidly validate the business value and
+                                                    technical feasibility
+                                                    of
+                                                    an
+                                                    AI project using real-world data in a controlled environment. We provide dedicated
+                                                    sandbox
+                                                    environments
+                                                    and expert guidance.</p>
+                                            </div>
+                                            <div class="divider"></div>
+                                            <div class="documents">
+                                                <h4>Relevant Assets & Documents</h4>
+                                                <div class="asset_row" data-role="User,Partner​" data-type="User Guide" data-format="PDF">
+                                                    <p>View POC User Guide</p>
+                                                    <div>
+                                                        <p>User Guide</p>
+                                                        <a title="View file" href="/content/assets/Collateral/User Guide for Consuming POCs.pdf" target="_blank"><i class="fa fa-eye"></i></a>
+                                                        <a href="/content/assets/Collateral/User Guide for Consuming POCs.pdf" target="_blank" download="" tilte="Download file"><i
+                                                                class="fa fa-download"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="asset_row" data-role="User,Partner​" data-type="User Guide" data-format="PDF">
+                                                    <p>Fresh POC Consuming Process</p>
+                                                    <div>
+                                                        <p>User Guide</p>
+                                                        <a title="View file" href="/content/assets/Collateral/User Guide - How to consume Fresh POC.pdf" target="_blank"><i class="fa fa-eye"></i></a>
+                                                        <a href="/content/assets/Collateral/User Guide - How to consume Fresh POC.pdf" target="_blank" download="" tilte="Download file"><i
+                                                                class="fa fa-download"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="asset_row" data-role="User​,Admin,Partner" data-type="User Guide"
+                                                    data-format="PDF">
+                                                    <p>POC to Pilot User Guide</p>
+                                                    <div>
+                                                        <p>User Guide</p>
+                                                        <a title="View file" href="/content/assets/Collateral/User Guide - POC to Pilot V2.pdf" target="_blank"><i class="fa fa-eye"></i></a>
+                                                        <a href="/content/assets/Collateral/User Guide - POC to Pilot V2.pdf" target="_blank" download="" tilte="Download file"><i
+                                                                class="fa fa-download"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="asset_row" data-role="User​,Admin,Partner" data-type="Demo"
+                                                    data-format="Video/MP4">
+                                                    <p>POC to Pilot Demo</p>
+                                                    <div>
+                                                        <p>Video</p>
+                                                        <a title="View file" href="/content/assets/videos/POC-Publish-Process.mp4" target="_blank"><i class="fa fa-eye"></i></a>
+                                                        <a href="/content/assets/videos/POC-Publish-Process.mp4" target="_blank" download="" tilte="Download file"><i class="fa fa-download"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="content-section" id="deployment">
+                                        <p class="getting-started-heading">AI Factory - MLOps</p>
+                                        <h2 class="main-title">Deployment</h2>
+
+                                        <div class="details-wrapper">
+                                            <div class="details">
+                                                    <p class="mb-0">
+                                                        The deployment pipeline manages the transition of a validated model from the PoC phase to
+                                                    production.
+                                                    It
+                                                    supports various deployment targets, including cloud endpoints, edge devices, and
+                                                    on-premises
+                                                    infrastructure.</p>
+                                            </div>
+                                            <div class="divider"></div>
+                                            <div class="documents">
+                                                <h4>Relevant Assets & Documents</h4>
+                                                <div class="asset_row" data-role="User​,Admin,Partner" data-type="User Guide"
+                                                    data-format="PDF">
+                                                    <p>AI Deployment Setup Guide</p>
+                                                    <div>
+                                                        <p>User Guide</p>
+                                                        <a title="View file" href="/content/assets/Collateral/AI_Deployment Document_VB_V2 1.pdf" target="_blank"><i class="fa fa-eye"></i></a>
+                                                        <a href="/content/assets/Collateral/AI_Deployment Document_VB_V2 1.pdf" target="_blank" download="" tilte="Download file"><i
+                                                                class="fa fa-download"></i></a>
+                                                    </div>
+                                                </div>
+                                                    <div class="asset_row" data-role="User&ZeroWidthSpace;,Admin,Partner" data-type="User Guide" data-format="PDF">
+                                                        <p>Prerequisites for Pilot</p>
+                                                        <div>
+                                                            <p>User Guide</p>
+                                                            <a title="View file" href="/content/assets/Collateral/Prerequisites for Pilot.pdf" target="_blank"><i class="fa fa-eye"></i></a>
+                                                            <a href="/content/assets/Collateral/Prerequisites for Pilot.pdf" target="_blank" download="" tilte="Download file"><i class="fa fa-download"></i></a>
+                                                        </div>
+                                                    </div>
+                                                
+                                                <div class="asset_row" data-role="User​,Admin,Partner" data-type="User Guide"
+                                                    data-format="PDF">
+                                                    <p>Steps for Configuration Web App</p>
+                                                    <div>
+                                                        <p>User Guide</p>
+                                                        <a title="View file" href="/content/assets/Collateral/Steps for Configuration Web App.pdf" target="_blank"><i class="fa fa-eye"></i></a>
+                                                        <a href="/content/assets/Collateral/Steps for Configuration Web App.pdf" target="_blank" download="" tilte="Download file"><i
+                                                                class="fa fa-download"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="asset_row" data-role="User​,Admin,Partner" data-type="User Guide"
+                                                    data-format="PDF">
+                                                    <p>Running Bicep Scripts</p>
+                                                    <div>
+                                                        <p>User Guide</p>
+                                                        <a title="View file" href="/content/assets/Collateral/User Guide to Running Bicep Scripts.pdf" target="_blank"><i class="fa fa-eye"></i></a>
+                                                        <a href="/content/assets/Collateral/User Guide to Running Bicep Scripts.pdf" target="_blank" download="" tilte="Download file"><i
+                                                                class="fa fa-download"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="content-section" id="trainingVideo">
+                                        <p class="getting-started-heading">Master Class & AI Factory - Training</p>
+                                        <h2 class="main-title">Microsoft Master Class & Training</h2>
+
+                                        <div class="details-wrapper">
+                                            <div class="details">
+                                                    <p class="mb-0">
+                                                        Building on insights from the Microsoft Azure OpenAI Master Class and Microsoft Fabric Master Class, the Training section defines a standardized process for training, evaluating, and tracking machine learning models. It ensures reproducibility through comprehensive logging of parameters, metrics, and lineage, enabling seamless model deployment.
+                                                    </p>
+                                            </div>
+                                            <div class="divider"></div>
+                                            <div class="documents">
+                                                <h4>Relevant Assets & Documents</h4>
+                                                    <div class="asset_row" data-role="User" data-type="Brochure" data-format="PDF">
+                                                        <p>Microsoft Azure OpenAI Master Class Brochure</p>
+                                                        <div>
+                                                            <p>Brochure</p>
+                                                            <a title="View file" href="/content/assets/Collateral/UnifyCloud-Azure OpenAI Master Class Brochure.pdf" target="_blank"><i class="fa fa-eye"></i></a>
+                                                            <a href="/content/assets/Collateral/UnifyCloud-Azure OpenAI Master Class Brochure.pdf" target="_blank" download="" tilte="Download file">
+                                                                <i class="fa fa-download"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="asset_row" data-role="User​,Admin,Partner" data-type="Brochure"
+                                                        data-format="PDF">
+                                                        <p>Microsoft Fabric Master Class Brochure</p>
+                                                        <div>
+                                                            <p>Brochure</p>
+                                                            <a title="View file" href="/content/assets/Collateral/UnifyCloud-Microsoft Fabric Master Class Brochure.pdf" target="_blank"><i class="fa fa-eye"></i></a>
+                                                            <a href="/content/assets/Collateral/UnifyCloud-Microsoft Fabric Master Class Brochure.pdf" target="_blank" download="" tilte="Download file">
+                                                                <i class="fa fa-download"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                <div class="asset_row" data-role="User​,Admin,Partner" data-type="Demo"
+                                                    data-format="Video/MP4">
+                                                    <p>Training Video - Synthetic Data Generator Tool.mp4</p>
+                                                    <div>
+                                                        <p>Video</p>
+                                                        <a title="View file" href="/content/assets/videos/Training Video - AI Factory Synthetic Data Generator Tool.mp4" target="_blank"><i class="fa fa-eye"></i></a>
+                                                        <a href="/content/assets/videos/Training Video - AI Factory Synthetic Data Generator Tool.mp4" target="_blank" download="" tilte="Download file"><i
+                                                                class="fa fa-download"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const navLinks = document.querySelectorAll('#nav-list .nav-link-item');
+                            const contentSections = document.querySelectorAll('.content-section');
+
+                            const roleFilter = document.getElementById('roleFilter');
+                            const contentTypeFilter = document.getElementById('contentTypeFilter');
+                            const formatFilter = document.getElementById('formatFilter');
+                            const searchInput = document.getElementById('searchInput');
+                            const clearBtn = document.getElementById('clearBtn');
+
+                            const filterContainer = document.getElementById('filter-container');
+                            const filterDropdown = document.getElementById('filter-dropdown');
+
+                            function debounce(fn, wait = 150) {
+                                let timeout;
+                                return function (...args) {
+                                    clearTimeout(timeout);
+                                    timeout = setTimeout(() => fn.apply(this, args), wait);
+                                };
+                            }
+
+                            
+
+                            navLinks.forEach(item => {
+                                const link = item.querySelector('a');
+
+                                link.addEventListener('click', function (e) {
+                                    e.preventDefault();
+                                    const targetId = this.getAttribute('data-section');
+                                    navLinks.forEach(nav => nav.classList.remove('active'));
+                                    item.classList.add('active');
+                                    contentSections.forEach(section => section.classList.remove('visible'));
+                                    const targetSection = document.getElementById(targetId);
+                                    if (targetSection) {
+                                        targetSection.classList.add('visible');
+                                        
+                                    }
+                                });
+                            });
+
+                            
+                        });
+                    </script>
+                </div> <!-- container-fluid -->
+            </div>
+        <!-- end main content-->
+    </div>
+    <!-- END -->
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    
+</body>
+</html>
